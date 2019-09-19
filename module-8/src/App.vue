@@ -25,20 +25,21 @@ export default {
   methods: {
     newQuote(quote) {
       if (this.quotes.length >= this.maxQuotes) {
-        return alert("Please delete quotes first");
+        return alert("Please delete quotes first")
       }
       this.quotes.push(quote);
     },
     deleteQuote(index) {
       this.quotes.splice(index, 1);
-    }
+    },
   },
   components: {
     appQuoteGrid: QuoteGrid,
     appNewQuote: NewQuote,
     appProgress: Progress
-  }
+  },
 };
+
 </script>
 
 <style>

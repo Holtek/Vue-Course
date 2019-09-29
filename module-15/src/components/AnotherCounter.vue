@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button class="btn btn-primary" @click="increment">Increment</button>
-    <button class="btn btn-primary" @click="decrement">Decrement</button>
+    <button class="btn btn-primary" @click="asyncIncrement({by: 50 , duration: 500})">Increment</button>
+    <button class="btn btn-primary" @click="asyncDecrement({by: 50 , duration: 500})">Decrement</button>
   </div>
 </template>
 
@@ -10,13 +10,14 @@ import { mapActions } from "vuex";
 export default {
   methods: {
     // ...mapMutations(['increment', 'decrement'])
-    //  ...mapActions(['increment', 'decrement'])
-    increment() {
-      this.$store.commit("increment");
-    },
-    decrement() {
-      this.$store.commit("decrement");
-    }
+    ...mapActions(["asyncIncrement", "asyncDecrement"])
+
+    // increment() {
+    //   this.$store.commit("increment");
+    // },
+    // decrement() {
+    //   this.$store.commit("decrement");
+    // }
   }
 };
 </script>

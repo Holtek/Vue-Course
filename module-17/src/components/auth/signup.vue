@@ -63,7 +63,7 @@
           v-if="!$v.hobbyInputs.minLen"
         >You have to specify at least {{$v.hobbyInputs.$params.minLen.min}} hobbies</p>
         <div class="submit">
-          <button type="submit">Submit</button>
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
         </div>
       </form>
     </div>
@@ -80,6 +80,7 @@ import {
   sameAs,
   requiredUnless
 } from "vuelidate/lib/validators";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -95,7 +96,16 @@ export default {
   validations: {
     email: {
       required: required,
-      email: email
+      email: email,
+      unique: val => {
+        if (val === "") return true;
+        return axios
+          .get('/users.json?orderBy="email"&equalTo="' + val + '"')
+          .then(res => {
+            console.log(res);
+            return false;
+          });
+      }
     },
     age: {
       required,
